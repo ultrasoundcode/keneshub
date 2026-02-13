@@ -1,0 +1,130 @@
+.profile__title {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+.profile__subtitle {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.profile__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile__card {
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+}
+
+.profile__card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.profile__avatar-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile__avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 800;
+  color: white;
+  flex-shrink: 0;
+}
+
+.profile__avatar-section h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.profile__avatar-section p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.profile__fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.profile__field label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.profile__field input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.profile__field input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+}
+
+.profile__plan {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.profile__plan-badge {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  background: var(--gradient-primary);
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+}
+
+.profile__plan-name {
+  font-weight: 600;
+}
+
+.profile__plan-price {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.profile__plan-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .profile__fields {
+    grid-template-columns: 1fr;
+  }
+}

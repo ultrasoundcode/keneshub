@@ -1,0 +1,48 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import AuthModal from './components/AuthModal';
+import ProtectedRoute from './components/ProtectedRoute'; // Import ProtectedRoute
+import Landing from './pages/Landing';
+import DashboardLayout from './components/dashboard/DashboardLayout';
+import DashboardHome from './components/dashboard/DashboardHome';
+import NewApplication from './components/dashboard/NewApplication';
+import MyApplications from './components/dashboard/MyApplications';
+import Profile from './components/dashboard/Profile';
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <AuthModal />
+        <Routes>
+          {/* Landing */}
+          <Route path="/" element={<Landing />} />
+
+          {/* Dashboard Layout (Public wrapper, but some children are protected) */}
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={
+              <ProtectedRoute>
+                <DashboardHome />
+              </ProtectedRoute>
+            } />
+            
+            {/* New Application is PUBLIC */}
+            <Route path="new" element={<NewApplication />} />
+            
+            <Route path="applications" element={
+              <ProtectedRoute>
+                <MyApplications />
+              </ProtectedRoute>
+            } />
+            
+            <Route path="profile" element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
+}

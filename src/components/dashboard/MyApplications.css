@@ -1,0 +1,116 @@
+.my-apps__title {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+.my-apps__subtitle {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.my-apps__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.my-apps__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  max-width: 400px;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+}
+
+.my-apps__search input {
+  border: none;
+  background: none;
+  color: var(--text-primary);
+  font-size: 14px;
+  flex: 1;
+}
+
+.my-apps__search input::placeholder {
+  color: var(--text-muted);
+}
+
+.my-apps__list {
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+}
+
+.my-apps__table-wrap {
+  overflow-x: auto;
+}
+
+.my-apps__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.my-apps__table th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.my-apps__table td {
+  padding: 14px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.my-apps__table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.my-apps__id {
+  color: var(--text-muted) !important;
+  font-size: 13px !important;
+}
+
+.my-apps__creditor {
+  font-weight: 600;
+  color: var(--text-primary) !important;
+}
+
+.my-apps__amount {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.my-apps__date {
+  color: var(--text-muted) !important;
+  font-size: 13px !important;
+}
+
+.my-apps__status {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status--rejected {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
