@@ -12,7 +12,7 @@ import Profile from './components/dashboard/Profile';
 export default function App() {
   return (
     <AuthProvider>
-      <Router>
+      <Router basename="/keneshub">
         <AuthModal />
         <Routes>
           {/* Landing */}
