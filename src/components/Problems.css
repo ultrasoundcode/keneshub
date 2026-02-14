@@ -1,89 +1,78 @@
 .problems {
   padding: var(--section-padding);
+  background: var(--bg-primary);
   position: relative;
 }
 
 .problems__header {
   text-align: center;
-  margin-bottom: 64px;
-}
-
-.problems__header .section-subtitle {
-  margin: 0 auto;
+  margin-bottom: 80px;
 }
 
 .problems__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns like some Google pages for better space */
+  gap: 32px;
 }
 
 .problems__card {
-  padding: 36px 28px;
-  border-radius: var(--radius-lg);
-  background: var(--bg-card);
-  border: 1px solid var(--border-glass);
-  transition: all var(--transition-base);
+  padding: 48px;
+  border-radius: var(--radius-xl);
+  background: var(--bg-primary);
+  border: 1.5px solid var(--border-light);
+  transition: all var(--transition-smooth);
   position: relative;
-  overflow: hidden;
-}
-
-.problems__card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--card-color);
-  opacity: 0;
-  transition: opacity var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .problems__card:hover {
-  background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: var(--text-primary);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-}
-
-.problems__card:hover::before {
-  opacity: 1;
 }
 
 .problems__card-icon {
-  width: 52px;
-  height: 52px;
+  width: 64px;
+  height: 64px;
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--card-color) 15%, transparent);
+  background: var(--bg-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
   color: var(--card-color);
+  margin-bottom: 8px;
 }
 
 .problems__card-title {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  letter-spacing: -0.01em;
+  font-family: 'Outfit', sans-serif;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
 .problems__card-desc {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 @media (max-width: 1024px) {
   .problems__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 }
 
-@media (max-width: 640px) {
-  .problems__grid {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .problems {
+    padding: 100px 0;
+  }
+  
+  .problems__card {
+    padding: 32px;
   }
 }
+

@@ -1,44 +1,18 @@
 .how-it-works {
   padding: var(--section-padding);
+  background: var(--bg-primary);
   position: relative;
-  overflow: hidden;
-}
-
-.how-it-works__glow {
-  position: absolute;
-  width: 800px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.08), transparent 70%);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
 }
 
 .how-it-works__header {
   text-align: center;
-  margin-bottom: 80px;
-}
-
-.how-it-works__header .section-subtitle {
-  margin: 0 auto;
+  margin-bottom: 100px;
 }
 
 .how-it-works__steps {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-  position: relative;
-}
-
-.how-it-works__line {
-  position: absolute;
-  top: 80px;
-  left: 12.5%;
-  right: 12.5%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent-blue), var(--accent-purple), var(--accent-pink), transparent);
-  opacity: 0.3;
+  gap: 40px;
 }
 
 .how-it-works__step {
@@ -47,64 +21,68 @@
 }
 
 .how-it-works__step-number {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--accent-blue);
-  margin-bottom: 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent-blue-strong);
+  margin-bottom: 20px;
+  text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
 .how-it-works__step-icon {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: var(--bg-glass-strong);
-  border: 1px solid var(--border-glass);
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+  border: 1.5px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 24px;
+  margin: 0 auto 32px;
   color: var(--accent-blue);
-  position: relative;
-  z-index: 1;
-  transition: all var(--transition-base);
+  transition: all var(--transition-smooth);
 }
 
 .how-it-works__step:hover .how-it-works__step-icon {
-  background: rgba(0, 212, 255, 0.1);
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
-  transform: scale(1.1);
+  border-color: var(--text-primary);
+  background: var(--bg-primary);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
 .how-it-works__step-title {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 16px;
   letter-spacing: -0.01em;
+  color: var(--text-primary);
 }
 
 .how-it-works__step-desc {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-secondary);
-  line-height: 1.7;
-  max-width: 240px;
-  margin: 0 auto;
+  line-height: 1.6;
 }
 
 @media (max-width: 1024px) {
   .how-it-works__steps {
     grid-template-columns: repeat(2, 1fr);
-    gap: 48px;
-  }
-
-  .how-it-works__line {
-    display: none;
+    gap: 60px;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .how-it-works {
+    padding: 100px 0;
+  }
+  
+  .how-it-works__header {
+    margin-bottom: 60px;
+  }
+  
   .how-it-works__steps {
     grid-template-columns: 1fr;
   }
 }
+

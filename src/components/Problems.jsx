@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TrendingDown, AlertTriangle, Scale, MessageSquareX } from 'lucide-react';
+import { TrendingDown, Layout, ShieldAlert, UserX } from 'lucide-react';
 import TypewriterText from './ui/TypewriterText';
 import './Problems.css';
 
@@ -12,23 +12,23 @@ const problems = [
     color: '#ef4444',
   },
   {
-    icon: AlertTriangle,
+    icon: Layout,
     title: 'Нет единого механизма',
     description: 'Отсутствие универсального инструмента для досудебного урегулирования споров с кредиторами.',
-    color: '#f59e0b',
+    color: '#3b82f6'
   },
   {
-    icon: Scale,
-    title: 'Низкая юр. грамотность',
-    description: 'Большинство заёмщиков не знают своих прав и не могут правильно составить обращение к кредитору.',
-    color: '#8b5cf6',
+    icon: ShieldAlert,
+    title: 'Сложность процедур',
+    description: 'Запутанные банковские процессы и необходимость знания юридических тонкостей законодательства РК.',
+    color: '#f59e0b'
   },
   {
-    icon: MessageSquareX,
-    title: 'Сложная коммуникация',
-    description: 'Общение с банками, МФО и коллекторами вызывает стресс и часто не приводит к результату.',
-    color: '#ec4899',
-  },
+    icon: UserX,
+    title: 'Высокая стоимость юристов',
+    description: 'Услуги профессиональных юристов часто недоступны для людей, уже находящихся в тяжелой ситуации.',
+    color: '#10b981'
+  }
 ];
 
 const containerVariants = {
@@ -61,10 +61,10 @@ export default function Problems() {
       <div className="container">
         <motion.div 
           className="problems__header"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           onViewportEnter={() => setStartTyping(true)}
         >
           <span className="section-badge">⚠️ Проблема</span>
@@ -78,27 +78,29 @@ export default function Problems() {
           </p>
         </motion.div>
 
-        <motion.div 
-          className="problems__grid"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
+        <div className="problems__grid">
           {problems.map((problem, index) => (
             <motion.div
               key={index}
               className="problems__card"
-              variants={cardVariants}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 1, 
+                delay: index * 0.1, 
+                ease: [0.16, 1, 0.3, 1] 
+              }}
+              style={{ '--card-color': problem.color }}
             >
-              <div className="problems__card-icon" style={{ '--card-color': problem.color }}>
-                <problem.icon size={24} />
+              <div className="problems__card-icon">
+                <problem.icon size={32} />
               </div>
               <h3 className="problems__card-title">{problem.title}</h3>
               <p className="problems__card-desc">{problem.description}</p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

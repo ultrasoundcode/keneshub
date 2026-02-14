@@ -1,3 +1,5 @@
+import React from 'react';
+import { motion } from 'framer-motion';
 import { useScrollReveal } from '../hooks/useAnimations';
 import { UserCheck, Cpu, FileCheck, Send } from 'lucide-react';
 import TypewriterText from './ui/TypewriterText';
@@ -35,7 +37,6 @@ export default function HowItWorks() {
 
   return (
     <section id="how-it-works" className="how-it-works" ref={ref}>
-      <div className="how-it-works__glow" />
       <div className="container">
         <div className={`how-it-works__header animate-on-scroll ${isVisible ? 'visible' : ''}`}>
           <span className="section-badge">🔧 Процесс</span>
@@ -50,15 +51,14 @@ export default function HowItWorks() {
         </div>
 
         <div className="how-it-works__steps">
-          <div className="how-it-works__line" />
           {steps.map((step, index) => (
             <div
               key={index}
               className={`how-it-works__step animate-on-scroll delay-${index + 1} ${isVisible ? 'visible' : ''}`}
             >
-              <div className="how-it-works__step-number">{step.step}</div>
+              <div className="how-it-works__step-number">Шаг {step.step}</div>
               <div className="how-it-works__step-icon">
-                <step.icon size={28} />
+                <step.icon size={32} />
               </div>
               <h3 className="how-it-works__step-title">{step.title}</h3>
               <p className="how-it-works__step-desc">{step.description}</p>

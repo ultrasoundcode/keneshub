@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useScrollReveal } from '../hooks/useAnimations';
 import { Brain, ShieldCheck, Globe, Bell, Zap, BarChart3 } from 'lucide-react';
 import TypewriterText from './ui/TypewriterText';
@@ -66,9 +67,8 @@ export default function Features() {
               key={index}
               className={`features__card animate-on-scroll delay-${index + 1} ${isVisible ? 'visible' : ''}`}
             >
-              <div className="features__card-glow" style={{ background: feature.gradient }} />
-              <div className="features__card-icon" style={{ background: feature.gradient }}>
-                <feature.icon size={24} color="white" />
+              <div className="features__card-icon">
+                <feature.icon size={28} />
               </div>
               <h3 className="features__card-title">{feature.title}</h3>
               <p className="features__card-desc">{feature.description}</p>

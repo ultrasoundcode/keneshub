@@ -1,93 +1,78 @@
 .features {
   padding: var(--section-padding);
+  background: var(--bg-secondary); /* Slight contrast from Problems section */
   position: relative;
 }
 
 .features__header {
   text-align: center;
-  margin-bottom: 64px;
-}
-
-.features__header .section-subtitle {
-  margin: 0 auto;
+  margin-bottom: 80px;
 }
 
 .features__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 32px;
 }
 
 .features__card {
-  padding: 36px 28px;
-  border-radius: var(--radius-lg);
-  background: var(--bg-card);
-  border: 1px solid var(--border-glass);
-  transition: all var(--transition-base);
+  padding: 48px 40px;
+  border-radius: var(--radius-xl);
+  background: var(--bg-primary);
+  border: 1.5px solid var(--border-light);
+  transition: all var(--transition-smooth);
   position: relative;
-  overflow: hidden;
-}
-
-.features__card-glow {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  opacity: 0;
-  filter: blur(80px);
-  transition: opacity var(--transition-smooth);
-  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .features__card:hover {
-  background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.12);
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-card);
-}
-
-.features__card:hover .features__card-glow {
-  opacity: 0.06;
+  border-color: var(--text-primary);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  transform: translateY(-4px);
 }
 
 .features__card-icon {
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   border-radius: var(--radius-md);
+  background: var(--bg-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
+  color: var(--accent-blue);
+  margin-bottom: 8px;
 }
 
 .features__card-title {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  letter-spacing: -0.01em;
-  position: relative;
-  z-index: 1;
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
 .features__card-desc {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-secondary);
-  line-height: 1.7;
-  position: relative;
-  z-index: 1;
+  line-height: 1.6;
 }
 
 @media (max-width: 1024px) {
   .features__grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
   }
 }
 
-@media (max-width: 640px) {
-  .features__grid {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .features {
+    padding: 100px 0;
+  }
+  
+  .features__card {
+    padding: 32px;
   }
 }
+

@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion';
 import { useScrollReveal } from '../hooks/useAnimations';
 import { Check, Star } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import TypewriterText from './ui/TypewriterText';
 import './Pricing.css';
 
@@ -55,6 +56,7 @@ const plans = [
 
 export default function Pricing() {
   const [ref, isVisible] = useScrollReveal();
+  const { openAuthModal } = useAuth();
 
   return (
     <section id="pricing" className="pricing" ref={ref}>
@@ -84,34 +86,31 @@ export default function Pricing() {
             >
               {plan.popular && (
                 <div className="pricing__card-badge">
-                  <Star size={12} /> Популярный
+                  Популярный
                 </div>
               )}
               <div className="pricing__card-header">
                 <h3 className="pricing__card-name">{plan.name}</h3>
                 <div className="pricing__card-price">
                   <span className="pricing__card-amount">{plan.price}</span>
-                  {plan.period && <span className="pricing__card-period">{plan.period}</span>}
+                  <span className="pricing__card-period">/ документ</span>
                 </div>
-                <p className="pricing__card-desc">{plan.description}</p>
               </div>
-
+              <p className="pricing__card-desc">{plan.description}</p>
               <ul className="pricing__card-features">
                 {plan.features.map((feature, i) => (
                   <li key={i}>
-                    <Check size={16} className="pricing__check" />
+                    <Check className="pricing__check" size={18} />
                     <span>{feature}</span>
                   </li>
                 ))}
               </ul>
-
-              <Link
-                to="/dashboard"
-                className={`btn ${plan.popular ? 'btn-primary' : 'btn-secondary'}`}
-                style={{ width: '100%' }}
+              <button
+                onClick={openAuthModal}
+                className={`btn ${plan.popular ? 'btn-primary' : 'btn-secondary'} btn-block`}
               >
                 {plan.cta}
-              </Link>
+              </button>
             </div>
           ))}
         </div>
