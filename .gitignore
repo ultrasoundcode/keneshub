@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# SQLite
+*.db-shm
+*.db-wal
+server/keneshab.db-shm
+server/keneshab.db-wal
+
