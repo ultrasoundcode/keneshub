@@ -1,5 +1,6 @@
 import { useScrollReveal } from '../hooks/useAnimations';
 import { UserCheck, Cpu, FileCheck, Send } from 'lucide-react';
+import TypewriterText from './ui/TypewriterText';
 import './HowItWorks.css';
 
 const steps = [
@@ -39,7 +40,9 @@ export default function HowItWorks() {
         <div className={`how-it-works__header animate-on-scroll ${isVisible ? 'visible' : ''}`}>
           <span className="section-badge">🔧 Процесс</span>
           <h2 className="section-title">
-            Как <span className="gradient-text">это работает</span>
+            Как <span className="gradient-text">
+              {isVisible ? <TypewriterText text="это работает" delay={200} /> : <span style={{visibility:'hidden'}}>это работает</span>}
+            </span>
           </h2>
           <p className="section-subtitle">
             Четыре простых шага от проблемы к решению — всё автоматизировано

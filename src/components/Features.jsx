@@ -1,5 +1,6 @@
 import { useScrollReveal } from '../hooks/useAnimations';
 import { Brain, ShieldCheck, Globe, Bell, Zap, BarChart3 } from 'lucide-react';
+import TypewriterText from './ui/TypewriterText';
 import './Features.css';
 
 const features = [
@@ -50,7 +51,9 @@ export default function Features() {
         <div className={`features__header animate-on-scroll ${isVisible ? 'visible' : ''}`}>
           <span className="section-badge">✨ Преимущества</span>
           <h2 className="section-title">
-            Всё что нужно в <span className="gradient-text">одном месте</span>
+            Всё что нужно в <span className="gradient-text">
+              {isVisible ? <TypewriterText text="одном месте" delay={200} /> : <span style={{visibility:'hidden'}}>одном месте</span>}
+            </span>
           </h2>
           <p className="section-subtitle">
             Передовые технологии для защиты ваших прав — просто, быстро и юридически грамотно

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ChevronRight, ChevronLeft, Building2, CreditCard, User, FileText, CheckCircle, Send, Loader2 } from 'lucide-react';
+import { Sparkles, ChevronRight, ChevronLeft, Building2, CreditCard, User, FileText, CheckCircle, Send, Loader2, FileCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext'; // Import AuthContext
 import './NewApplication.css';
@@ -119,12 +119,14 @@ export default function NewApplication() {
         {!submitted && (
           <div className="new-app__progress">
             {[
-              { num: 1, label: 'Кредитор' },
-              { num: 2, label: 'Данные' },
-              { num: 3, label: 'Документ' },
-            ].map(({ num, label }) => (
+              { num: 1, label: 'Кредитор', icon: Building2 },
+              { num: 2, label: 'Данные', icon: FileText },
+              { num: 3, label: 'Документ', icon: FileCheck },
+            ].map(({ num, label, icon: Icon }) => (
               <div key={num} className={`new-app__progress-step ${step >= num ? 'new-app__progress-step--active' : ''}`}>
-                <div className="new-app__progress-dot">{step > num ? '✓' : num}</div>
+                <div className="new-app__progress-dot">
+                  {step > num ? <CheckCircle size={20} /> : <Icon size={20} />}
+                </div>
                 <span>{label}</span>
               </div>
             ))}

@@ -1,5 +1,7 @@
-import { useScrollReveal } from '../hooks/useAnimations';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { TrendingDown, AlertTriangle, Scale, MessageSquareX } from 'lucide-react';
+import TypewriterText from './ui/TypewriterText';
 import './Problems.css';
 
 const problems = [
@@ -29,36 +31,74 @@ const problems = [
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 100,
+      damping: 20,
+    }
+  },
+};
+
 export default function Problems() {
-  const [ref, isVisible] = useScrollReveal();
+  const [startTyping, setStartTyping] = React.useState(false);
 
   return (
-    <section id="problems" className="problems" ref={ref}>
+    <section id="problems" className="problems">
       <div className="container">
-        <div className={`problems__header animate-on-scroll ${isVisible ? 'visible' : ''}`}>
+        <motion.div 
+          className="problems__header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          onViewportEnter={() => setStartTyping(true)}
+        >
           <span className="section-badge">⚠️ Проблема</span>
           <h2 className="section-title">
-            Почему заёмщикам <span className="gradient-text">сложно</span>
+            Почему заёмщикам <span className="gradient-text">
+              {startTyping ? <TypewriterText text="сложно" delay={200} /> : <span style={{visibility:'hidden'}}>сложно</span>}
+            </span>
           </h2>
           <p className="section-subtitle">
             Миллионы казахстанцев столкнулись с проблемной задолженностью, но не знают как защитить свои права
           </p>
-        </div>
+        </motion.div>
 
-        <div className="problems__grid">
+        <motion.div 
+          className="problems__grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {problems.map((problem, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`problems__card animate-on-scroll delay-${index + 1} ${isVisible ? 'visible' : ''}`}
+              className="problems__card"
+              variants={cardVariants}
             >
               <div className="problems__card-icon" style={{ '--card-color': problem.color }}>
                 <problem.icon size={24} />
               </div>
               <h3 className="problems__card-title">{problem.title}</h3>
               <p className="problems__card-desc">{problem.description}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

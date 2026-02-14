@@ -1,19 +1,166 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { useParallax } from '../hooks/useAnimations';
 import { ArrowRight, Shield, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import TypewriterText from './ui/TypewriterText';
 import './Hero.css';
 
-export default function Hero() {
-  const { x, y } = useParallax();
+const ParticleAnimation = () => {
+  const canvasRef = useRef(null);
 
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+    
+    // Google Antigravity colors + Brand colors
+    const colors = ['#4285F4', '#DB4437', '#F4B400', '#0F9D58', '#8B5CF6', '#00D4FF'];
+    
+    let particles = [];
+    const particleCount = 200; // Adjust for density
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+      constructor() {
+        this.reset(true);
+      }
+
+      reset(initial = false) {
+        this.x = (Math.random() - 0.5) * canvas.width * 2;
+        this.y = (Math.random() - 0.5) * canvas.height * 2;
+        // Start from random depth if initial, else start far away
+        this.z = initial ? Math.random() * 2000 : 2000;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.size = Math.random() * 2 + 1; // Random size
+        // Speed depends on z to create parallax-like feel or just constant forward movement
+        this.speed = 15; 
+      }
+
+      update() {
+        this.z -= this.speed;
+        
+        // Reset if particle passes the screen
+        if (this.z <= 1) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        // Perspective projection
+        // Simple perspective: x' = x / z * constant
+        const fov = 300;
+        const scale = fov / (fov + this.z);
+        
+        // Center of screen
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+
+        const x2d = (this.x - cx) * scale + cx; // This formulation might be wrong for "flying through"
+        // Correct standard 3D projection:
+        // x' = x * (focalLength / z) + centerX
+        
+        // Let's use a simpler starfield logic:
+        // x,y are relative to center.
+        // As z decreases, they move away from center.
+        
+        // Current approach: x, y are static world coordinates. Z decreases.
+        // We project world to screen.
+        
+        // Let's retry coordinates:
+        // origin is center screen (0,0,0) implied.
+        // x,y range from -W to W, -H to H.
+        
+        // However, in reset() I used canvas.width. Let's shift to center relative.
+        
+        const px = (this.x / this.z) * 500 + cx;
+        const py = (this.y / this.z) * 500 + cy;
+
+        // Calculate size based on depth
+        const size = (1 - this.z / 2000) * 4 * this.size;
+
+        if (this.z > 0 && px > 0 && px < canvas.width && py > 0 && py < canvas.height) {
+            ctx.beginPath();
+            ctx.fillStyle = this.color;
+            ctx.arc(px, py, Math.max(0, size), 0, Math.PI * 2);
+            ctx.fill();
+        }
+      }
+    }
+    
+    // Improved Particle Logic for "Antigravity" confetti feel
+    // Antigravity has particles that might float or explode. 
+    // The user mentioned "liftoff", which usually implies movement UP or Forward.
+    // The starfield (warpspeed) is "Forward". 
+    // Let's do a "Forward" warp speed with colorful confetti.
+
+    // Re-initializing particles with centered coordinates
+    particles = [];
+    for (let i = 0; i < particleCount; i++) {
+        const p = new Particle();
+        // Correct start positions for starfield
+        p.x = (Math.random() - 0.5) * canvas.width * 5; // Spread wide
+        p.y = (Math.random() - 0.5) * canvas.height * 5;
+        particles.push(p);
+    }
+
+    const animate = () => {
+      // Create trailing effect or just clear
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(p => {
+        p.update();
+        // Custom draw inside loop to use closure vars if needed, or call p.draw()
+        // Perspective projection
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+        
+        // Simple 3D projection
+        // z goes from 2000 to 1.
+        const scale = 500 / p.z; 
+        const px = p.x * scale + cx;
+        const py = p.y * scale + cy;
+        
+        const size = p.size * scale; // Scale size by perspective
+
+        if (p.z > 1 && px > -50 && px < canvas.width + 50 && py > -50 && py < canvas.height + 50) {
+            ctx.beginPath();
+            ctx.fillStyle = p.color;
+            // Draw as slight ovals or lines to simulate speed? Or just dots for confetti.
+            // Confetti usually rotates, but dots are fine for now.
+            ctx.arc(px, py, Math.max(0.1, size), 0, Math.PI * 2);
+            ctx.fill();
+        }
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="hero__canvas" />;
+};
+
+export default function Hero() {
   return (
     <section className="hero">
       {/* Background effects */}
       <div className="hero__bg">
-        <div className="hero__orb hero__orb--1" style={{ transform: `translate(${x * 20}px, ${y * 20}px)` }} />
-        <div className="hero__orb hero__orb--2" style={{ transform: `translate(${x * -15}px, ${y * -15}px)` }} />
-        <div className="hero__orb hero__orb--3" style={{ transform: `translate(${x * 10}px, ${y * -10}px)` }} />
+        <ParticleAnimation />
         <div className="hero__grid" />
       </div>
 
@@ -34,7 +181,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Путь к <span className="gradient-text">договорённости</span>
+          Путь к <span className="gradient-text"><TypewriterText text="договорённости" delay={1000} /></span>
           <br />начинается здесь
         </motion.h1>
 
@@ -81,23 +228,6 @@ export default function Hero() {
           <div className="hero__stat">
             <span className="hero__stat-number">3 мин</span>
             <span className="hero__stat-label">Среднее время создания</span>
-          </div>
-        </motion.div>
-
-        {/* Floating elements */}
-        <motion.div
-          className="hero__floating"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, delay: 1 }}
-        >
-          <div className="hero__float-card hero__float-card--1" style={{ transform: `translate(${x * 25}px, ${y * 25}px)` }}>
-            <Shield size={20} className="hero__float-icon" />
-            <span>ЭЦП подпись</span>
-          </div>
-          <div className="hero__float-card hero__float-card--2" style={{ transform: `translate(${x * -20}px, ${y * -20}px)` }}>
-            <Sparkles size={20} className="hero__float-icon" />
-            <span>ИИ генерация</span>
           </div>
         </motion.div>
       </div>

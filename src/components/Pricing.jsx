@@ -1,6 +1,7 @@
 import { useScrollReveal } from '../hooks/useAnimations';
 import { Check, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import TypewriterText from './ui/TypewriterText';
 import './Pricing.css';
 
 const plans = [
@@ -61,7 +62,14 @@ export default function Pricing() {
         <div className={`pricing__header animate-on-scroll ${isVisible ? 'visible' : ''}`}>
           <span className="section-badge">💎 Тарифы</span>
           <h2 className="section-title">
-            Выберите <span className="gradient-text">свой план</span>
+            {isVisible ? (
+              <>
+                Выберите <span className="gradient-text"><TypewriterText text="свой план" delay={500} /></span>
+              </>
+            ) : (
+              // Placeholder to prevent layout shift before animation starts
+              <span style={{ visibility: 'hidden' }}>Выберите свой план</span>
+            )}
           </h2>
           <p className="section-subtitle">
             Начните бесплатно или выберите план с расширенными возможностями

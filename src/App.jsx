@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import AuthModal from './components/AuthModal';
-import ProtectedRoute from './components/ProtectedRoute'; // Import ProtectedRoute
+import ProtectedRoute from './components/ProtectedRoute';
 import Landing from './pages/Landing';
 import DashboardLayout from './components/dashboard/DashboardLayout';
 import DashboardHome from './components/dashboard/DashboardHome';
 import NewApplication from './components/dashboard/NewApplication';
 import MyApplications from './components/dashboard/MyApplications';
 import Profile from './components/dashboard/Profile';
+import AdminDashboard from './components/dashboard/AdminDashboard'; // Import AdminDashboard
 
 export default function App() {
   return (
@@ -38,6 +39,12 @@ export default function App() {
             <Route path="profile" element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            } />
+
+            <Route path="admin" element={
+              <ProtectedRoute>
+                <AdminDashboard />
               </ProtectedRoute>
             } />
           </Route>

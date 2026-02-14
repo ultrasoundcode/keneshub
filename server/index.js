@@ -35,38 +35,38 @@ app.post('/api/auth/otp/send', async (req, res) => {
       return res.status(400).json({ error: 'Контакт и имя обязательны' });
     }
 
-    // Generate fixed code for easier development
-    const code = '7777';
+    // Generate random 4-digit code
+    const code = Math.floor(1000 + Math.random() * 9000).toString();
     
     // Save to store (expires in 5 mins)
     otpStore.set(contact, { code, name, expires: Date.now() + 5 * 60 * 1000 });
 
-    console.log(`🔐 OTP code for ${contact}: ${code}`); // Always log for backup
+    console.log(`🔐 OTP code for ${contact}: ${code}`); // Leave for debug
 
     if (type === 'email') {
       try {
-        // Mock email sending for development stability
-        // await transporter.sendMail({
-        //   from: '"KenesHab Support" <noreply@keneshab.kz>',
-        //   to: contact,
-        //   subject: 'Ваш код подтверждения KenesHab',
-        //   text: `Здравствуйте, ${name}!\n\nВаш код для входа: ${code}\n\nКод действителен 5 минут.`,
-        //   html: `<div style="font-family: sans-serif; padding: 20px;">
-        //     <h2>KenesHab</h2>
-        //     <p>Здравствуйте, <strong>${name}</strong>!</p>
-        //     <p>Ваш код для входа в личный кабинет:</p>
-        //     <h1 style="color: #00d4ff; letter-spacing: 5px;">${code}</h1>
-        //     <p>Код действителен 5 минут.</p>
-        //     <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
-        //     <p style="color: #888; font-size: 12px;">Если вы не запрашивали код, проигнорируйте это письмо.</p>
-        //   </div>`
-        // });
-        console.log(`📧 Email sent to ${contact} (MOCKED)`);
+        await transporter.sendMail({
+          from: '"KenesHab Support" <noreply@keneshab.kz>',
+          to: contact,
+          subject: 'Ваш код подтверждения KenesHab',
+          text: `Здравствуйте, ${name}!\n\nВаш код для входа: ${code}\n\nКод действителен 5 минут.`,
+          html: `<div style="font-family: sans-serif; padding: 20px;">
+            <h2>KenesHab</h2>
+            <p>Здравствуйте, <strong>${name}</strong>!</p>
+            <p>Ваш код для входа в личный кабинет:</p>
+            <h1 style="color: #00d4ff; letter-spacing: 5px;">${code}</h1>
+            <p>Код действителен 5 минут.</p>
+            <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
+            <p style="color: #888; font-size: 12px;">Если вы не запрашивали код, проигнорируйте это письмо.</p>
+          </div>`
+        });
+        console.log(`📧 Email sent to ${contact}`);
       } catch (emailErr) {
         console.error('Failed to send email:', emailErr);
-        // Don't fail the request, allowing user to get code from console/admin panel in worst case
-        // But for user experience, maybe warn them? 
-        // For now, let's proceed as success so frontend shows input field, user can check console or ask admin.
+        // Error handling: still respond success but maybe warn? 
+        // For production, we should probably fail if email fails.
+        // For now, let's return error so user knows.
+        return res.status(500).json({ error: 'Не удалось отправить письмо. Проверьте правильность email.' });
       }
     } else {
       // SMS logic would go here (requires SMS gateway API)
@@ -95,6 +95,8 @@ app.post('/api/auth/otp/verify', (req, res) => {
       return res.status(400).json({ error: 'Код истек' });
     }
 
+    // Allow fixed code for testing if needed, or strictly record.code
+    // For now strict check
     if (record.code !== code) {
       return res.status(400).json({ error: 'Неверный код' });
     }
@@ -105,9 +107,6 @@ app.post('/api/auth/otp/verify', (req, res) => {
     if (!user) {
       // Create new user
       const id = uuidv4();
-      // For simplicity in this logical flow, we just put the contact in the right column
-      // Ideally we'd validte if it's email or phone, but for this demo we can try to guess or use the type passed earlier (but we don't have it here without saving it).
-      // Let's assume contact is email if it has @, else phone.
       const isEmail = contact.includes('@');
       
       db.prepare(
@@ -117,7 +116,7 @@ app.post('/api/auth/otp/verify', (req, res) => {
         isEmail ? contact : null, 
         isEmail ? null : contact, 
         record.name,
-        'otp-user' // Placeholder for password hash as we use OTP
+        'otp-user' 
       );
       
       user = db.prepare('SELECT * FROM users WHERE id = ?').get(id);
@@ -156,7 +155,81 @@ app.put('/api/auth/me', authMiddleware, (req, res) => {
   }
 });
 
-// ===================== APPLICATIONS ROUTES =====================
+// ===================== ADMIN ROUTES =====================
+
+const ADMIN_EMAIL = '0xexperimentalforeverything@gmail.com'; // Hardcoded admin for now
+
+function adminMiddleware(req, res, next) {
+  if (req.user.email !== ADMIN_EMAIL) {
+    return res.status(403).json({ error: 'Доступ запрещен' });
+  }
+  next();
+}
+
+// Получить ВСЕ заявления (Admin)
+app.get('/api/admin/applications', authMiddleware, adminMiddleware, (req, res) => {
+  try {
+    const applications = db.prepare(`
+      SELECT a.*, u.full_name as user_name, u.email as user_email 
+      FROM applications a 
+      JOIN users u ON a.user_id = u.id 
+      ORDER BY a.created_at DESC
+    `).all();
+    res.json(applications);
+  } catch (err) {
+    res.status(500).json({ error: 'Ошибка сервера' });
+  }
+});
+
+// Ответить на заявление (Admin)
+app.post('/api/admin/reply', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const { applicationId, message, status } = req.body;
+    
+    // 1. Get application and user details
+    const appData = db.prepare(`
+      SELECT a.*, u.email as user_email, u.full_name as user_name
+      FROM applications a
+      JOIN users u ON a.user_id = u.id
+      WHERE a.id = ?
+    `).get(applicationId);
+
+    if (!appData) return res.status(404).json({ error: 'Заявление не найдено' });
+
+    // 2. Update status if provided
+    if (status) {
+      db.prepare('UPDATE applications SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?')
+        .run(status, applicationId);
+    }
+
+    // 3. Send Email
+    if (appData.user_email) {
+      await transporter.sendMail({
+        from: '"KenesHab Support" <noreply@keneshab.kz>',
+        to: appData.user_email,
+        subject: `Обновление по вашему заявлению в ${appData.creditor_name}`,
+        html: `<div style="font-family: sans-serif; padding: 20px;">
+          <h2>Здравствуйте, ${appData.user_name}!</h2>
+          <p>По вашему заявлению (ID: ${applicationId.slice(0, 8)}...) есть новости.</p>
+          <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #00d4ff; margin: 20px 0;">
+            ${message.replace(/\n/g, '<br/>')}
+          </div>
+          <p>Текущий статус: <strong>${status || appData.status}</strong></p>
+          <hr />
+          <p style="color: #888; font-size: 12px;">С уважением, команда KenesHab.</p>
+        </div>`
+      });
+    }
+
+    res.json({ message: 'Ответ отправлен и статус обновлен' });
+  } catch (err) {
+    console.error('Admin reply error:', err);
+    res.status(500).json({ error: 'Ошибка при отправке ответа', details: err.message });
+  }
+});
+
+
+// ===================== USER APPLICATIONS ROUTES =====================
 
 // Получить все заявления пользователя
 app.get('/api/applications', authMiddleware, (req, res) => {
@@ -291,14 +364,9 @@ ${description ? `Дополнительная информация: ${descriptio
 app.listen(PORT, () => {
   console.log(`🚀 KenesHab API сервер запущен на http://localhost:${PORT}`);
   console.log(`📦 Эндпоинты:`);
-  console.log(`   POST   /api/auth/register`);
-  console.log(`   POST   /api/auth/login`);
+  console.log(`   POST   /api/auth/otp/send`);
+  console.log(`   POST   /api/auth/otp/verify`);
   console.log(`   GET    /api/auth/me`);
-  console.log(`   PUT    /api/auth/me`);
-  console.log(`   GET    /api/applications`);
-  console.log(`   POST   /api/applications`);
-  console.log(`   GET    /api/applications/:id`);
-  console.log(`   PATCH  /api/applications/:id/status`);
-  console.log(`   DELETE /api/applications/:id`);
-  console.log(`   GET    /api/stats`);
+  console.log(`   GET    /api/admin/applications (Admin Only)`);
+  console.log(`   POST   /api/admin/reply (Admin Only)`);
 });
