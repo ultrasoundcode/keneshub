@@ -41,7 +41,7 @@ export default function Footer() {
 
           <div className="footer__links-group">
             <h4>Разработка</h4>
-            <a href="https://github.com/ultrasoundcode" target="_blank" rel="noopener noreferrer">GitHub разработчика</a>
+            <a href="https://github.com/ultrasoundcode" target="_blank" rel="noopener noreferrer">ultrasoundcode</a>
           </div>
         </div>
 

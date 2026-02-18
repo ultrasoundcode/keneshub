@@ -14,53 +14,51 @@
 }
 
 .app-modal__content {
-  background: #1a1b1e; /* Darker greyish background */
+  background: #1e1f23; /* Slightly lighter than pure black for depth */
   width: 100%;
   max-width: 800px;
   max-height: 90vh;
   border-radius: 20px;
   position: relative;
   overflow-y: auto;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15); /* More visible border */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
   padding: 40px;
-}
-
-.app-modal__close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  padding: 5px;
-  transition: all 0.2s;
-}
-
-.app-modal__close:hover {
-  color: var(--text-primary);
-  transform: rotate(90deg);
+  color: #ffffff;
 }
 
 .app-modal__step-title {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 8px;
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 .app-modal__step-subtitle {
-  color: var(--text-secondary);
+  color: #a1a1aa; /* Zinc-400 equivalent for better contrast */
   margin-bottom: 30px;
 }
 
-/* Reusing some styles from NewApplication.css or defining new ones here */
-.new-app__type-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin-bottom: 30px;
+.new-app__field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e4e4e7; /* Zinc-200 for labels */
+}
+
+.new-app__field input,
+.new-app__field select,
+.new-app__field textarea {
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+
+.new-app__field input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .new-app__type-card {
@@ -69,12 +67,24 @@
   align-items: center;
   gap: 10px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: var(--text-secondary);
+  color: #a1a1aa;
+}
+
+.new-app__type-card span {
+  font-weight: 500;
+}
+
+.new-app__type-card--selected {
+  background: rgba(66, 133, 244, 0.2);
+  border-color: var(--accent-blue);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
 }
 
 .new-app__type-card--selected {
