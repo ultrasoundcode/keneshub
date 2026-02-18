@@ -134,4 +134,22 @@
   .navbar__actions .btn {
     display: none;
   }
+
+  .navbar__mobile-actions {
+    display: flex;
+    margin-top: 20px;
+    width: 100%;
+    justify-content: center;
+    padding: 0 40px;
+  }
+
+  .navbar__mobile-actions .btn {
+    width: 100%;
+    font-size: 18px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
 }

@@ -28,6 +28,24 @@ export default function Navbar() {
           <a href="#how-it-works" onClick={() => setMobileOpen(false)}>Как это работает</a>
           <a href="#features" onClick={() => setMobileOpen(false)}>Преимущества</a>
           <a href="#pricing" onClick={() => setMobileOpen(false)}>Тарифы</a>
+          
+          <div className="navbar__mobile-actions">
+            {user ? (
+              <Link to="/dashboard" className="btn btn-primary" onClick={() => setMobileOpen(false)}>
+                <User size={18} /> Личный кабинет
+              </Link>
+            ) : (
+              <button 
+                onClick={() => {
+                  setMobileOpen(false);
+                  openAuthModal();
+                }} 
+                className="btn btn-primary"
+              >
+                Войти в кабинет
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="navbar__actions">
