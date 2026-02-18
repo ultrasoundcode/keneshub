@@ -14,51 +14,78 @@
 }
 
 .app-modal__content {
-  background: #1e1f23; /* Slightly lighter than pure black for depth */
+  background: #ffffff;
   width: 100%;
   max-width: 800px;
   max-height: 90vh;
   border-radius: 20px;
   position: relative;
   overflow-y: auto;
-  border: 1px solid rgba(255, 255, 255, 0.15); /* More visible border */
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
   padding: 40px;
-  color: #ffffff;
+  color: #1e293b;
+}
+
+.app-modal__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 5px;
+  transition: all 0.2s;
+}
+
+.app-modal__close:hover {
+  color: #0f172a;
+  transform: rotate(90deg);
 }
 
 .app-modal__step-title {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 8px;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .app-modal__step-subtitle {
-  color: #a1a1aa; /* Zinc-400 equivalent for better contrast */
+  color: #64748b;
   margin-bottom: 30px;
 }
 
 .new-app__field label {
   font-size: 14px;
   font-weight: 600;
-  color: #e4e4e7; /* Zinc-200 for labels */
+  color: #334155;
+  margin-bottom: 4px;
 }
 
 .new-app__field input,
 .new-app__field select,
 .new-app__field textarea {
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
   border-radius: 10px;
-  color: #ffffff;
+  color: #1e293b;
   font-size: 15px;
   transition: all 0.2s;
 }
 
+.new-app__field input:focus,
+.new-app__field select:focus,
+.new-app__field textarea:focus {
+  background: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
 .new-app__field input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: #94a3b8;
 }
 
 .new-app__type-card {
@@ -67,24 +94,40 @@
   align-items: center;
   gap: 10px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: #a1a1aa;
+  color: #64748b;
 }
 
 .new-app__type-card span {
-  font-weight: 500;
+  font-weight: 600;
+}
+
+.new-app__type-card:hover {
+  border-color: #3b82f6;
+  background: #f1f5f9;
 }
 
 .new-app__type-card--selected {
-  background: rgba(66, 133, 244, 0.2);
-  border-color: var(--accent-blue);
-  color: #ffffff;
+  background: #eff6ff;
+  border-color: #3b82f6;
+  color: #2563eb;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.new-app__document {
+  background: #f8fafc;
+  color: #1e293b;
+  padding: 30px;
+  border-radius: 12px;
+  font-family: 'Times New Roman', serif;
+  line-height: 1.6;
+  margin: 20px 0;
+  border: 1px solid #e2e8f0;
 }
 
 .new-app__type-card--selected {
@@ -163,34 +206,37 @@
 
 .tariff-card {
   padding: 24px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
   transition: all 0.3s;
   cursor: pointer;
+  color: #1e293b;
 }
 
 .tariff-card:hover {
-  border-color: var(--accent-blue);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: #3b82f6;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
 .tariff-card--selected {
-  border-color: var(--accent-blue);
-  background: var(--bg-accent-blue);
+  border-color: #3b82f6;
+  background: #eff6ff;
 }
 
 .tariff-card h3 {
   font-size: 18px;
   margin-bottom: 10px;
+  color: #0f172a;
 }
 
 .tariff-price {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 15px;
+  color: #3b82f6;
 }
 
 .app-info-page {
@@ -199,11 +245,12 @@
 
 .app-info-card {
   text-align: left;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   padding: 25px;
   border-radius: 15px;
   margin-top: 20px;
+  color: #1e293b;
 }
 
 .status-badge {
@@ -212,6 +259,7 @@
   border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
-  background: var(--bg-accent-blue);
-  color: var(--accent-blue);
+  background: #dbeafe;
+  color: #2563eb;
 }
+
