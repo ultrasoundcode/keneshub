@@ -105,7 +105,7 @@ const ParticleAnimation = () => {
 };
 
 export default function Hero() {
-  const { openAuthModal } = useAuth();
+  const { openAppModal } = useAuth();
 
   return (
     <section className="hero">
@@ -117,7 +117,7 @@ export default function Hero() {
           className="hero__badge"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.8 }}
         >
           <Sparkles size={16} color="var(--accent-blue)" />
@@ -128,18 +128,17 @@ export default function Hero() {
           className="hero__title"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          Путь к <span className="gradient-text"><TypewriterText text="договорённости" delay={1000} /></span>
-          <br />начинается здесь
+          Путь к <span className="gradient-text"><TypewriterText text="договорённости начинается здесь" delay={200} /></span>
         </motion.h1>
 
         <motion.p
           className="hero__subtitle"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           KenesHab — цифровой сервис досудебного урегулирования задолженности.
@@ -150,10 +149,10 @@ export default function Hero() {
           className="hero__actions"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <button onClick={openAuthModal} className="btn btn-primary btn-lg">
+          <button onClick={openAppModal} className="btn btn-primary btn-lg">
             Подать заявление
             <ArrowRight size={20} />
           </button>
@@ -166,7 +165,7 @@ export default function Hero() {
           className="hero__stats"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="hero__stat">

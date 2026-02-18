@@ -63,7 +63,7 @@ export default function Problems() {
           className="problems__header"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           onViewportEnter={() => setStartTyping(true)}
         >
@@ -85,7 +85,7 @@ export default function Problems() {
               className="problems__card"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: false, margin: "-50px" }}
               transition={{ 
                 duration: 1, 
                 delay: index * 0.1, 

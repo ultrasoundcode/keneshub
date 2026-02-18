@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import AuthModal from './components/AuthModal';
+import ApplicationModal from './components/ApplicationModal';
 import ProtectedRoute from './components/ProtectedRoute';
 import Landing from './pages/Landing';
 import DashboardLayout from './components/dashboard/DashboardLayout';
@@ -15,6 +16,7 @@ export default function App() {
     <AuthProvider>
       <Router basename="/keneshub">
         <AuthModal />
+        <ApplicationModal />
         <Routes>
           {/* Landing */}
           <Route path="/" element={<Landing />} />

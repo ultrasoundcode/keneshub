@@ -42,16 +42,23 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
+  const [isAppModalOpen, setIsAppModalOpen] = useState(false);
+
   const openAuthModal = () => setIsAuthModalOpen(true);
   const closeAuthModal = () => setIsAuthModalOpen(false);
+  const openAppModal = () => setIsAppModalOpen(true);
+  const closeAppModal = () => setIsAppModalOpen(false);
 
   return (
     <AuthContext.Provider value={{
       user,
       isLoading,
       isAuthModalOpen,
+      isAppModalOpen,
       openAuthModal,
       closeAuthModal,
+      openAppModal,
+      closeAppModal,
       login,
       logout
     }}>

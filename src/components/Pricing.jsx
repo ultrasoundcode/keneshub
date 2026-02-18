@@ -56,7 +56,7 @@ const plans = [
 
 export default function Pricing() {
   const [ref, isVisible] = useScrollReveal();
-  const { openAuthModal } = useAuth();
+  const { openAppModal } = useAuth();
 
   return (
     <section id="pricing" className="pricing" ref={ref}>
@@ -106,7 +106,7 @@ export default function Pricing() {
                 ))}
               </ul>
               <button
-                onClick={openAuthModal}
+                onClick={openAppModal}
                 className={`btn ${plan.popular ? 'btn-primary' : 'btn-secondary'} btn-block`}
               >
                 {plan.cta}

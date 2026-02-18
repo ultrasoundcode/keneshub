@@ -42,37 +42,43 @@
   align-items: center;
   justify-content: center;
   color: var(--accent-blue);
-  margin-bottom: 8px;
-}
-
-.features__card-title {
-  font-family: 'Outfit', sans-serif;
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-}
-
-.features__card-desc {
-  font-size: 16px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-@media (max-width: 1024px) {
-  .features__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s;
 }
 
 @media (max-width: 768px) {
   .features {
-    padding: 100px 0;
+    padding: 60px 0;
   }
   
+  .features__header {
+    margin-bottom: 40px;
+  }
+
+  .features__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 16px;
+  }
+
   .features__card {
-    padding: 32px;
+    padding: 24px;
+    gap: 12px;
+  }
+
+  .features__card-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+  }
+
+  .features__card-title {
+    font-size: 20px;
+  }
+
+  .features__card-desc {
+    font-size: 14px;
   }
 }
 
