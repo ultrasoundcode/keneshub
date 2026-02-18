@@ -33,10 +33,15 @@ export default function Footer() {
           </div>
 
           <div className="footer__links-group">
-            <h4>Поддержка</h4>
-            <a href="#">Помощь</a>
-            <a href="#">Связаться с нами</a>
-            <a href="#">FAQ</a>
+            <h4>Контакты</h4>
+            <p className="footer__info-text">Адрес: ЖК Шугыла City, микрорайон Шугыла, 340/4 к12</p>
+            <a href="https://2gis.kz/almaty/geo/70000001109725313" target="_blank" rel="noopener noreferrer">Карта (BirTime)</a>
+            <a href="tel:87076667292">Тел: 87076667292</a>
+          </div>
+
+          <div className="footer__links-group">
+            <h4>Разработка</h4>
+            <a href="https://github.com/ultrasoundcode" target="_blank" rel="noopener noreferrer">GitHub разработчика</a>
           </div>
         </div>
 

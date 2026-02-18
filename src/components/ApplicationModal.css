@@ -14,15 +14,15 @@
 }
 
 .app-modal__content {
-  background: var(--bg-card);
+  background: #1a1b1e; /* Darker greyish background */
   width: 100%;
   max-width: 800px;
   max-height: 90vh;
   border-radius: 20px;
   position: relative;
   overflow-y: auto;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
   padding: 40px;
 }
 

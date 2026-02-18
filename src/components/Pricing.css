@@ -6,7 +6,7 @@
 
 .pricing__header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 }
 
 .pricing__grid {
@@ -17,7 +17,7 @@
 }
 
 .pricing__card {
-  padding: 48px 40px;
+  padding: 32px 28px;
   border-radius: var(--radius-xl);
   background: var(--bg-primary);
   border: 1.5px solid var(--border-light);
@@ -25,7 +25,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
 }
 
 .pricing__card:hover {
@@ -75,7 +75,7 @@
 
 .pricing__card-amount {
   font-family: 'Outfit', sans-serif;
-  font-size: 48px;
+  font-size: 36px;
   font-weight: 500;
   letter-spacing: -0.04em;
   color: var(--text-primary);
