@@ -23,6 +23,14 @@ export default function Navbar() {
           <span className="navbar__logo-text">KenesHab</span>
         </Link>
 
+        {/* Backdrop for closing mobile menu */}
+        {mobileOpen && (
+          <div 
+            className="navbar__overlay" 
+            onClick={() => setMobileOpen(false)}
+          />
+        )}
+
         <div className={`navbar__links ${mobileOpen ? 'navbar__links--open' : ''}`}>
           <a href="#problems" onClick={() => setMobileOpen(false)}>Проблемы</a>
           <a href="#how-it-works" onClick={() => setMobileOpen(false)}>Как это работает</a>
