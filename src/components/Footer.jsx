@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Instagram, MessageCircle, Music } from 'lucide-react';
 import './Footer.css';
 
 export default function Footer() {
@@ -16,8 +17,15 @@ export default function Footer() {
               Цифровой сервис досудебного урегулирования задолженности с ИИ-помощником
             </p>
             <div className="footer__socials">
-              <a href="https://www.instagram.com/keneshub.kz?igsh=MWowejN4b3p3OTN1aw==" target="_blank" rel="noopener noreferrer" className="footer__social-link">Instagram</a>
-              <a href="https://www.tiktok.com/@keneshub.kz?_r=1&_t=ZS-943Tr2Y12Uj" target="_blank" rel="noopener noreferrer" className="footer__social-link">TikTok</a>
+              <a href="https://wa.me/77712292976" target="_blank" rel="noopener noreferrer" className="footer__social-icon whatsapp">
+                <MessageCircle size={20} />
+              </a>
+              <a href="https://www.instagram.com/keneshub.kz?igsh=MWowejN4b3p3OTN1aw==" target="_blank" rel="noopener noreferrer" className="footer__social-icon instagram">
+                <Instagram size={20} />
+              </a>
+              <a href="https://www.tiktok.com/@keneshub.kz?_r=1&_t=ZS-943Tr2Y12Uj" target="_blank" rel="noopener noreferrer" className="footer__social-icon tiktok">
+                <Music size={20} />
+              </a>
             </div>
           </div>
 
@@ -40,7 +48,7 @@ export default function Footer() {
             <h4>Контакты</h4>
             <p className="footer__info-text">Адрес: ЖК Шугыла City, микрорайон Шугыла, 340/4 к12</p>
             <a href="https://2gis.kz/almaty/geo/70000001109725313" target="_blank" rel="noopener noreferrer">Карта (BirTime)</a>
-            <a href="tel:87076667292">Тел: 87076667292</a>
+            <a href="https://wa.me/77712292976">WhatsApp: 87712292976</a>
           </div>
 
           <div className="footer__links-group">

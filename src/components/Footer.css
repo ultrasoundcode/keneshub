@@ -61,24 +61,31 @@
 
 .footer__socials {
   display: flex;
-  gap: 16px;
+  gap: 12px;
 }
 
-.footer__social-link {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--accent-blue);
-  transition: all var(--transition-base);
-  padding: 8px 16px;
-  background: rgba(66, 133, 244, 0.05);
+.footer__social-icon {
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: all var(--transition-base);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
 }
 
-.footer__social-link:hover {
-  background: var(--accent-blue);
+.footer__social-icon:hover {
   color: white;
   transform: translateY(-2px);
+  border-color: transparent;
 }
+
+.footer__social-icon.whatsapp:hover { background: #25D366; }
+.footer__social-icon.instagram:hover { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+.footer__social-icon.tiktok:hover { background: #000000; }
 
 .footer__links-group h4 {
   font-size: 14px;
