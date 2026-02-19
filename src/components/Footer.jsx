@@ -15,6 +15,10 @@ export default function Footer() {
             <p className="footer__brand-desc">
               Цифровой сервис досудебного урегулирования задолженности с ИИ-помощником
             </p>
+            <div className="footer__socials">
+              <a href="https://www.instagram.com/keneshub.kz?igsh=MWowejN4b3p3OTN1aw==" target="_blank" rel="noopener noreferrer" className="footer__social-link">Instagram</a>
+              <a href="https://www.tiktok.com/@keneshub.kz?_r=1&_t=ZS-943Tr2Y12Uj" target="_blank" rel="noopener noreferrer" className="footer__social-link">TikTok</a>
+            </div>
           </div>
 
           <div className="footer__links-group">
